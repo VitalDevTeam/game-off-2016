@@ -1,14 +1,18 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
-
+Project("{02CF6FC1-FDBA-745F-0C1F-B67438A50844}") = "Game Off 2016", "Assembly-CSharp.csproj", "{D9F397E6-9308-28E9-C1C5-00BC81B98AA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-
+		{D9F397E6-9308-28E9-C1C5-00BC81B98AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9F397E6-9308-28E9-C1C5-00BC81B98AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9F397E6-9308-28E9-C1C5-00BC81B98AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9F397E6-9308-28E9-C1C5-00BC81B98AA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
