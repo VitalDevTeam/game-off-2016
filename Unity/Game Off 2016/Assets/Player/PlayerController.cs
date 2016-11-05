@@ -3,20 +3,21 @@ using System.Collections;
 
 
 public class PlayerController : MonoBehaviour {
-	public const string UP = "up";
-	public const string RIGHT = "right";
-	public const string DOWN = "down";
-	public const string LEFT = "left";
+	public const int UP = 1;
+	public const int RIGHT = 0;
+	public const int DOWN = 3;
+	public const int LEFT = 2;
 	
-	private string _direction = DOWN;
+	private int _direction = 3;
 
 	private Rigidbody2D rb;
+	private Animator animator;
 
 	public float Speed = 3.0f;
 
-	public string GetDirection(){
+	public int GetDirection(){
 		Vector2 V = rb.velocity;
-		string ret = "";
+		int ret;
 
 		if(V.x == 0 && V.y == 0){
 			ret = _direction;
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
+		animator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -52,5 +54,8 @@ public class PlayerController : MonoBehaviour {
 
 		rb.velocity = V.normalized * Speed;
 		_direction = GetDirection();
+
+		animator.SetFloat("Direction", (float)_direction);
+		animator.SetFloat("Speed", rb.velocity.magnitude);
 	}
 }
