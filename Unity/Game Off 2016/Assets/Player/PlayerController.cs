@@ -3,38 +3,26 @@ using System.Collections;
 
 
 public class PlayerController : MonoBehaviour {
-	public const int UP = 1;
-	public const int RIGHT = 0;
-	public const int DOWN = 3;
-	public const int LEFT = 2;
-	
-	private int _direction = 3;
-
+	private const float tau = Mathf.PI * 2;
+	private float _heading = 0.75f;
 	private Rigidbody2D rb;
 	private Animator animator;
 
 	public float Speed = 3.0f;
 
-	public int GetDirection(){
+	public float GetHeading(){
 		Vector2 V = rb.velocity;
-		int ret;
+		float ret;
 
 		if(V.x == 0 && V.y == 0){
-			ret = _direction;
+			ret = _heading;
 		} else {
-			if(Mathf.Abs(V.y) > Mathf.Abs(V.x)){
-				if(V.y > 0){
-					ret = UP;
-				} else {
-					ret = DOWN;
-				}
-			} else {
-				if(V.x > 0){
-					ret = RIGHT;
-				} else {
-					ret = LEFT;
-				}
+			float theta = Mathf.Atan2(V.y, V.x) % tau;
+			while(theta < 0){
+				theta += tau;
 			}
+			
+			ret = theta / tau;
 		}
 
 		return ret;
@@ -53,9 +41,9 @@ public class PlayerController : MonoBehaviour {
 		Vector2 V = new Vector2(dX, dY);
 
 		rb.velocity = V.normalized * Speed;
-		_direction = GetDirection();
+		_heading = GetHeading();
 
-		animator.SetFloat("Direction", (float)_direction);
+		animator.SetFloat("Heading", _heading);
 		animator.SetFloat("Speed", rb.velocity.magnitude);
 	}
 }
