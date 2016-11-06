@@ -45,8 +45,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\CameraController.cs" />
      <Compile Include="Assets\Player\PlayerController.cs" />
-     <Compile Include="Assets\RoomMarker.cs" />
+     <Compile Include="Assets\Room Prefab\Room.cs" />
+     <Compile Include="Assets\Room Prefab\RoomEntryTrigger.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
