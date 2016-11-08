@@ -53,8 +53,10 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		float frameSpeed = Speed;
-		if(animator.GetBool("Attacking")){
+		if (animator.GetBool("Attacking")) {
 			frameSpeed *= 0.25f;
+		} else if (Input.GetKey(KeyCode.LeftShift)) {
+			frameSpeed *= 2.0f;
 		}
 
 		rb.velocity = V.normalized * frameSpeed;
