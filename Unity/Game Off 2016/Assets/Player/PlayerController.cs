@@ -33,6 +33,14 @@ public class PlayerController : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
 	}
+
+	void StartAttack(){
+		animator.SetBool("Attacking", true);
+	}
+
+	void FinishAttack(){
+		animator.SetBool("Attacking", false);
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -40,7 +48,16 @@ public class PlayerController : MonoBehaviour {
 		float dY = Input.GetAxis("Vertical");
 		Vector2 V = new Vector2(dX, dY);
 
-		rb.velocity = V.normalized * Speed;
+		if(Input.GetKeyDown(KeyCode.Space)){
+			StartAttack();
+		}
+
+		float frameSpeed = Speed;
+		if(animator.GetBool("Attacking")){
+			frameSpeed *= 0.25f;
+		}
+
+		rb.velocity = V.normalized * frameSpeed;
 		_heading = GetHeading();
 
 		animator.SetFloat("Heading", _heading);
