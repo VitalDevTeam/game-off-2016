@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\CameraController.cs" />
+     <Compile Include="Assets\Enemy\EnemyController.cs" />
+     <Compile Include="Assets\Enemy\EnemyPatroller.cs" />
      <Compile Include="Assets\Player\PlayerController.cs" />
      <Compile Include="Assets\Room Prefab\Room.cs" />
      <Compile Include="Assets\Room Prefab\RoomEntryTrigger.cs" />
