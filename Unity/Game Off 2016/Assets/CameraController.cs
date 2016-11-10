@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class CameraController : MonoBehaviour {
-	GameObject Player;
+	public float Speed = 0.1f;
+	private GameObject Player;
 	private Room _currentRoom;
 	private Bounds _roomBounds;
 	private float verticalExtent;
@@ -28,11 +29,13 @@ public class CameraController : MonoBehaviour {
 	}
 
 	void FollowPlayer(){
-		this.transform.position =  new Vector3(
+		Vector3 target = new Vector3(
 			Player.transform.position.x,
 			Player.transform.position.y,
-			this.transform.position.z
+			transform.position.z
 		);
+
+		transform.position = Vector3.MoveTowards(transform.position, target, Speed);
 	}
 
 	void StayInsideRoom(){
