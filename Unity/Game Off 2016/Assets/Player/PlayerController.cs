@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
 	private Animator animator;
 
 	public float Speed = 3.0f;
+	public GameObject Attack;
 
 	public float GetHeading(){
 		Vector2 V = rb.velocity;
@@ -38,6 +39,10 @@ public class PlayerController : MonoBehaviour {
 		animator.SetBool("Attacking", true);
 	}
 
+	void TriggerAttack(){
+		Instantiate(Attack, transform.position, Quaternion.AngleAxis(_heading * 360, Vector3.forward));
+	}
+
 	void FinishAttack(){
 		animator.SetBool("Attacking", false);
 	}
@@ -64,5 +69,9 @@ public class PlayerController : MonoBehaviour {
 
 		animator.SetFloat("Heading", _heading);
 		animator.SetFloat("Speed", rb.velocity.magnitude);
+	}
+
+	void Shoot(){
+		print("I've been shot!");
 	}
 }

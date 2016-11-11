@@ -12,4 +12,8 @@ public class EnemyController : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	void Shoot(){
+		Debug.LogFormat("Oh my God, you shot {0}! You Bastard!", gameObject.name);
+	}
 }

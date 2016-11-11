@@ -6,11 +6,9 @@ public class EnemyPatroller : MonoBehaviour {
 	public Transform[] Waypoints;
 	private int activeWaypointIndex = 0;
 
-	private Rigidbody2D rb;
-
 	// Use this for initialization
 	void Start () {
-		rb = GetComponent<Rigidbody2D>();
+		
 	}
 	
 	// Update is called once per frame
