@@ -40,7 +40,14 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void TriggerAttack(){
-		Instantiate(Attack, transform.position, Quaternion.AngleAxis(_heading * 360, Vector3.forward));
+		Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y) );
+		Vector2 playerPosition = new Vector2(transform.position.x, transform.position.y);
+		Vector2 direction = target - playerPosition;
+		direction.Normalize();
+
+		Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+
+		Instantiate(Attack, playerPosition, rotation);
 	}
 
 	void FinishAttack(){
@@ -52,14 +59,18 @@ public class PlayerController : MonoBehaviour {
 		float dX = Input.GetAxis("Horizontal");
 		float dY = Input.GetAxis("Vertical");
 		Vector2 V = new Vector2(dX, dY);
+		
+		// Sprite faces mouse position
+		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
 
-		if(Input.GetKeyDown(KeyCode.Space)){
+		if(Input.GetMouseButtonDown(0)){
 			StartAttack();
 		}
 
 		float frameSpeed = Speed;
 		if (animator.GetBool("Attacking")) {
-			frameSpeed *= 0.25f;
+			frameSpeed *= 0.75f;
 		} else if (Input.GetKey(KeyCode.LeftShift)) {
 			frameSpeed *= 2.0f;
 		}
@@ -67,8 +78,8 @@ public class PlayerController : MonoBehaviour {
 		rb.velocity = V.normalized * frameSpeed;
 		_heading = GetHeading();
 
-		animator.SetFloat("Heading", _heading);
-		animator.SetFloat("Speed", rb.velocity.magnitude);
+		// animator.SetFloat("Heading", _heading);
+		// animator.SetFloat("Speed", rb.velocity.magnitude);
 	}
 
 	void Shoot(){
