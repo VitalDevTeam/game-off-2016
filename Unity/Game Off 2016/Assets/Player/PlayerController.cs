@@ -12,13 +12,15 @@ public class PlayerController : MonoBehaviour {
 	public GameObject Attack;
 
 	public float GetHeading(){
-		Vector2 V = rb.velocity;
+		// Sprite faces mouse position
+		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		Vector2 V = mousePos - transform.position;
 		float ret;
 
 		if(V.x == 0 && V.y == 0){
 			ret = _heading;
 		} else {
-			float theta = Mathf.Atan2(V.y, V.x) % tau;
+			float theta = (Mathf.Atan2(V.y, V.x) % tau) - (tau/8);
 			while(theta < 0){
 				theta += tau;
 			}
@@ -59,10 +61,6 @@ public class PlayerController : MonoBehaviour {
 		float dX = Input.GetAxis("Horizontal");
 		float dY = Input.GetAxis("Vertical");
 		Vector2 V = new Vector2(dX, dY);
-		
-		// Sprite faces mouse position
-		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
 
 		if(Input.GetMouseButtonDown(0)){
 			StartAttack();
@@ -78,8 +76,8 @@ public class PlayerController : MonoBehaviour {
 		rb.velocity = V.normalized * frameSpeed;
 		_heading = GetHeading();
 
-		// animator.SetFloat("Heading", _heading);
-		// animator.SetFloat("Speed", rb.velocity.magnitude);
+		animator.SetFloat("Heading", _heading);
+		animator.SetFloat("Speed", rb.velocity.magnitude);
 	}
 
 	void Shoot(){
