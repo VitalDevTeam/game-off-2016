@@ -7,11 +7,15 @@ public class EnemyController : MonoBehaviour {
     public int currentHealth;                   // The current health the enemy has.
     public int damagePerShot = 20;              // The damage inflicted by each bullet.
 
-    bool isDead;                                // Whether the enemy is dead.
+    public bool isDead;                         // Whether the enemy is dead.
+
+    private Animator animator;
 
 	// Use this for initialization
 	void Start () { 
 		
+        animator = GetComponent<Animator>();
+
         // Setting the current health when the enemy first spawns.
         currentHealth = startingHealth;
 	
@@ -35,20 +39,26 @@ public class EnemyController : MonoBehaviour {
         // If the current health is less than or equal to zero...
         if(currentHealth <= 0) {
             // ... the enemy is dead.
-            Death ();
+            Die ();
         }
 
 		Debug.LogFormat("Oh my God, you shot the {0}!", gameObject.name);
 	}
 
-	void Death ()
-    {
+	void Die () {
         // The enemy is dead.
         isDead = true;
 
-		Destroy(this.gameObject);
+        animator.SetBool("is dead", true);
 
+    }
+
+    void FinishDying () {
+        
+        Destroy(this.gameObject);
+        
 		Debug.LogFormat("Enemy is Dead", gameObject.name);
+
     }
 
 }

@@ -6,17 +6,24 @@ public class EnemyPatroller : MonoBehaviour {
 	public Transform[] Waypoints;
 	private int activeWaypointIndex = 0;
 
+	private EnemyController ec;
+
 	// Use this for initialization
 	void Start () {
-		
+		ec = GetComponent<EnemyController>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Transform waypoint = Waypoints[activeWaypointIndex];
-		transform.position = Vector3.MoveTowards(transform.position, waypoint.position, Speed * Time.deltaTime);
-		if(transform.position == waypoint.position){
-			activeWaypointIndex = (activeWaypointIndex + 1) % Waypoints.Length;
+
+		if(!ec.isDead) {
+
+			Transform waypoint = Waypoints[activeWaypointIndex];
+			transform.position = Vector3.MoveTowards(transform.position, waypoint.position, Speed * Time.deltaTime);
+			if(transform.position == waypoint.position){
+				activeWaypointIndex = (activeWaypointIndex + 1) % Waypoints.Length;
+			}
+			
 		}
 	}
 

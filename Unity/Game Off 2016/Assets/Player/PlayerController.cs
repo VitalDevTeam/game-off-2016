@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 	private float _heading = 0.75f;
 	private Rigidbody2D rb;
 	private Animator animator;
+	private bool isAttacking;
 
 	public float Speed = 3.0f;
 	public GameObject Attack;
@@ -38,7 +39,11 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void StartAttack(){
-		animator.SetBool("Attacking", true);
+		if(!isAttacking) {
+			animator.SetBool("Attacking", true);
+			isAttacking = true;
+		}
+		
 	}
 
 	void TriggerAttack(){
@@ -54,6 +59,7 @@ public class PlayerController : MonoBehaviour {
 
 	void FinishAttack(){
 		animator.SetBool("Attacking", false);
+		isAttacking = false;
 	}
 	
 	// Update is called once per frame
