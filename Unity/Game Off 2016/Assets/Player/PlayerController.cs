@@ -39,22 +39,19 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void StartAttack(){
-		if(!isAttacking) {
-			animator.SetBool("Attacking", true);
-			isAttacking = true;
-		}
-		
+		animator.SetBool("Attacking", true);
+		isAttacking = true;
 	}
 
-	void TriggerAttack(){
-		Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y) );
-		Vector2 playerPosition = new Vector2(transform.position.x, transform.position.y);
-		Vector2 direction = target - playerPosition;
-		direction.Normalize();
+	void TriggerAttack(AnimationEvent e){
+		if(e.animatorClipInfo.weight > 0.5f){
+			Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y) );
+			Vector2 playerPosition = new Vector2(transform.position.x, transform.position.y);
+			Vector2 direction = target - playerPosition;
+			Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
 
-		Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-
-		Instantiate(Attack, playerPosition, rotation);
+			Instantiate(Attack, playerPosition, rotation);
+		}
 	}
 
 	void FinishAttack(){
