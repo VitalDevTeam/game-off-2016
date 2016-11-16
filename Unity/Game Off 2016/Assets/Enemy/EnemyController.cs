@@ -46,6 +46,8 @@ public class EnemyController : MonoBehaviour {
         // The enemy is dead.
         isDead = true;
 
+		Destroy(this.gameObject);
+
 		Debug.LogFormat("Enemy is Dead", gameObject.name);
     }
 
