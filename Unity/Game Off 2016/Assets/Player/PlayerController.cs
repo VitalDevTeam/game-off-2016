@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour {
 		float dY = Input.GetAxis("Vertical");
 		Vector2 V = new Vector2(dX, dY);
 
-		if(Input.GetMouseButtonDown(0)){
+		if(Input.GetMouseButton(0)){
 			StartAttack();
 		}
 
