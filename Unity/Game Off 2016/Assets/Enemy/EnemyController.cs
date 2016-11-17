@@ -33,6 +33,9 @@ public class EnemyController : MonoBehaviour {
         if(isDead)
             // no need to take damage so exit the function.
             return;
+        
+        // Play hit animation
+        StartCoroutine(Hit());
 
         // Reduce the current health by the amount of damage sustained.
         currentHealth -= damagePerShot;
@@ -46,10 +49,16 @@ public class EnemyController : MonoBehaviour {
 		Debug.LogFormat("Oh my God, you shot the {0}!", gameObject.name);
 	}
 
+    IEnumerator Hit() {
+        animator.SetBool("Hit", true);
+        yield return new WaitForSeconds(0.1f);
+        animator.SetBool("Hit", false);
+    }
+
 	void Die () {
         isDead = true;
         collider.enabled = false;
-        animator.SetBool("is dead", true);
+        animator.SetBool("Dead", true);
     }
 
     void FinishDying () {
