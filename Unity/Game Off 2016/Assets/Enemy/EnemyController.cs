@@ -6,15 +6,16 @@ public class EnemyController : MonoBehaviour {
 	public int startingHealth = 100;            // The amount of health the enemy starts the game with.
     public int currentHealth;                   // The current health the enemy has.
     public int damagePerShot = 20;              // The damage inflicted by each bullet.
-
     public bool isDead;                         // Whether the enemy is dead.
 
     private Animator animator;
+    private BoxCollider2D collider;
 
 	// Use this for initialization
 	void Start () { 
 		
         animator = GetComponent<Animator>();
+        collider = GetComponent<BoxCollider2D>();
 
         // Setting the current health when the enemy first spawns.
         currentHealth = startingHealth;
@@ -46,19 +47,14 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void Die () {
-        // The enemy is dead.
         isDead = true;
-
+        collider.enabled = false;
         animator.SetBool("is dead", true);
-
     }
 
     void FinishDying () {
-        
         Destroy(this.gameObject);
-        
 		Debug.LogFormat("Enemy is Dead", gameObject.name);
-
     }
 
 }
