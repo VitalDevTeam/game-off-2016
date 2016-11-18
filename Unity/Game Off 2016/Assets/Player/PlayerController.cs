@@ -8,9 +8,14 @@ public class PlayerController : MonoBehaviour {
 	private Rigidbody2D rb;
 	private Animator animator;
 	private bool isAttacking;
+	private BoxCollider2D collider;
 
 	public float Speed = 3.0f;
 	public GameObject Attack;
+	public int startingHealth = 100;
+	public int currentHealth;
+    public int damagePerHit = 20;
+	public bool alive;
 
 	public float GetHeading(){
 		// Sprite faces mouse position
@@ -36,11 +41,16 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
+        collider = GetComponent<BoxCollider2D>();
+        currentHealth = startingHealth;
+		alive = true;
 	}
 
 	void StartAttack(){
-		animator.SetBool("Attacking", true);
-		isAttacking = true;
+		if(alive == true) {
+			animator.SetBool("Attacking", true);
+			isAttacking = true;
+		}
 	}
 
 	void TriggerAttack(AnimationEvent e){
@@ -61,29 +71,78 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float dX = Input.GetAxis("Horizontal");
-		float dY = Input.GetAxis("Vertical");
-		Vector2 V = new Vector2(dX, dY);
+			float dX = Input.GetAxis("Horizontal");
+			float dY = Input.GetAxis("Vertical");
+			float frameSpeed = Speed;
+			Vector2 V = new Vector2(dX, dY);
 
-		if(Input.GetMouseButton(0)){
-			StartAttack();
-		}
+			if(Input.GetMouseButton(0)){
+				StartAttack();
+			}
 
-		float frameSpeed = Speed;
-		if (animator.GetBool("Attacking")) {
-			frameSpeed *= 0.75f;
-		} else if (Input.GetKey(KeyCode.LeftShift)) {
-			frameSpeed *= 2.0f;
-		}
+			if (animator.GetBool("Attacking")) {
+				frameSpeed *= 0.75f;
+			} else if (Input.GetKey(KeyCode.LeftShift)) {
+				frameSpeed *= 2.0f;
+			}
 
-		rb.velocity = V.normalized * frameSpeed;
-		_heading = GetHeading();
+			if(alive == true) {
+				rb.velocity = V.normalized * frameSpeed;
+			} else {
+				rb.velocity = Vector2.zero;
+			}
 
-		animator.SetFloat("Heading", _heading);
-		animator.SetFloat("Speed", rb.velocity.magnitude);
+			_heading = GetHeading();
+			
+			animator.SetFloat("Heading", _heading);
+			animator.SetFloat("Speed", rb.velocity.magnitude);
 	}
 
 	void Shoot(){
 		print("I've been shot!");
 	}
+
+ 	void OnCollisionEnter2D(Collision2D col) {
+		// Take damage if you touch an enemy
+		if (col.gameObject.name == "Patroller") {
+
+				StartCoroutine(Hit());
+				currentHealth -= damagePerHit;
+
+				if(currentHealth <= 0) {
+					Die();
+				}
+			Debug.LogFormat("I've been hit! Life is at {0}", currentHealth);
+
+		}
+    }
+    IEnumerator Hit() {
+		// disable collider so player can't get hit again immediately.
+		collider.enabled = false;
+
+		// blink sprite three times
+		GetComponent<Renderer>().enabled = false;
+        yield return new WaitForSeconds(0.1f);
+		GetComponent<Renderer>().enabled = true;
+        yield return new WaitForSeconds(0.1f);
+		GetComponent<Renderer>().enabled = false;
+        yield return new WaitForSeconds(0.1f);
+		GetComponent<Renderer>().enabled = true;
+
+		// wait a bit
+        yield return new WaitForSeconds(1f);
+		
+		// if still alive, enable collider so plater can take more damage
+		if(alive == true) {
+			collider.enabled = true;
+		}
+    }
+
+	void Die() {
+		// disable BoxCollider2D
+		collider.enabled = false;
+		// aaannnd... im dead.
+		alive = false;
+	}
+	
 }
