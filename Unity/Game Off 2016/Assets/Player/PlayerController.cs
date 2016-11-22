@@ -10,8 +10,12 @@ public class PlayerController : MonoBehaviour {
 	private bool isAttacking;
 	private BoxCollider2D collider;
 
+	private WeaponController weaponController;
+
+
+	public GameObject Weapon;
+
 	public float Speed = 3.0f;
-	public GameObject Attack;
 	public int startingHealth = 100;
 	public int currentHealth;
     public int damagePerHit = 20;
@@ -26,7 +30,7 @@ public class PlayerController : MonoBehaviour {
 		if(V.x == 0 && V.y == 0){
 			ret = _heading;
 		} else {
-			float theta = (Mathf.Atan2(V.y, V.x) % tau) - (tau/8);
+			float theta = Mathf.Atan2(V.y, V.x) % tau;
 			while(theta < 0){
 				theta += tau;
 			}
@@ -42,60 +46,56 @@ public class PlayerController : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
         collider = GetComponent<BoxCollider2D>();
+		weaponController = Weapon.GetComponent<WeaponController>();
+		
+
         currentHealth = startingHealth;
 		alive = true;
 	}
 
 	void StartAttack(){
+		weaponController.StartAttack(gameObject.transform.position, _heading);
 		if(alive == true) {
 			animator.SetBool("Attacking", true);
 			isAttacking = true;
 		}
 	}
 
-	void TriggerAttack(AnimationEvent e){
-		if(e.animatorClipInfo.weight > 0.5f){
-			Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y) );
-			Vector2 playerPosition = new Vector2(transform.position.x, transform.position.y);
-			Vector2 direction = target - playerPosition;
-			Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-
-			Instantiate(Attack, playerPosition, rotation);
-		}
-	}
-
 	void FinishAttack(){
+		weaponController.FinishAttack();
 		animator.SetBool("Attacking", false);
 		isAttacking = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(alive) {
 			float dX = Input.GetAxis("Horizontal");
 			float dY = Input.GetAxis("Vertical");
 			float frameSpeed = Speed;
 			Vector2 V = new Vector2(dX, dY);
 
-			if(Input.GetMouseButton(0)){
+			rb.velocity = V.normalized * frameSpeed;
+			_heading = GetHeading();
+
+			if(Input.GetMouseButtonDown(0)){
 				StartAttack();
+			} else if(Input.GetMouseButtonUp(0)){
+				FinishAttack();
 			}
 
-			if (animator.GetBool("Attacking")) {
+			if (weaponController.IsAttacking) {
+				weaponController.ContinueAttack(gameObject.transform.position, _heading);
 				frameSpeed *= 0.75f;
 			} else if (Input.GetKey(KeyCode.LeftShift)) {
 				frameSpeed *= 2.0f;
 			}
-
-			if(alive == true) {
-				rb.velocity = V.normalized * frameSpeed;
-			} else {
-				rb.velocity = Vector2.zero;
-			}
-
-			_heading = GetHeading();
 			
 			animator.SetFloat("Heading", _heading);
 			animator.SetFloat("Speed", rb.velocity.magnitude);
+		} else {
+			rb.velocity = Vector2.zero;
+		}
 	}
 
 	void Shoot(){
