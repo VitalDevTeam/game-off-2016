@@ -8,7 +8,9 @@ public class RifleController : WeaponController {
 
 	public int BurstShots = 3;
 	public float BurstRateOfFire = 0.075f; //Number of seconds between shots. Lower = Faster
+
 	public float AutoRateOfFire = 0.0875f; //Number of seconds between shots. Lower = Faster
+	public float AutoSpread = 0.01f;
 
 	public enum FireMode { BURST_MODE, AUTO_MODE };
 
@@ -19,7 +21,16 @@ public class RifleController : WeaponController {
 	}
 
 	private void FireAutoShot(){
-		FireBullet(Owner.transform.position, Owner.GetHeading());
+		float Heading = Owner.GetHeading();
+		Heading += Mathf.Lerp(-AutoSpread, AutoSpread, Random.value);
+		while(Heading < 0){
+			Heading += 1;
+		}
+		while(Heading > 1){
+			Heading -= 1;
+		}
+
+		FireBullet(Owner.transform.position, Heading);
 	}
 
 	public override void StartAttack(Vector3 Position, float Heading){
