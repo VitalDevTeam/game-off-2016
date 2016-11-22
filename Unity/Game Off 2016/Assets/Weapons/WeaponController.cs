@@ -21,6 +21,12 @@ public class WeaponController : MonoBehaviour, IWeapon {
 	}
 
 	public GameObject Bullet;
+	public PlayerController Owner;
+	
+	protected void FireBullet(Vector3 Position, float Heading){
+		Quaternion Rotation = Quaternion.Euler(0, 0, Mathf.Lerp(0, 360, Heading));
+		Instantiate(Bullet, Position, Rotation);
+	}
 
 	public virtual void StartAttack(Vector3 Position, float Heading){
 		_isAttacking = true;

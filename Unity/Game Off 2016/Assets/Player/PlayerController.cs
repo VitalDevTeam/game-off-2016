@@ -46,8 +46,9 @@ public class PlayerController : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
         collider = GetComponent<BoxCollider2D>();
+
 		weaponController = Weapon.GetComponent<WeaponController>();
-		
+		weaponController.Owner = this;
 
         currentHealth = startingHealth;
 		alive = true;
