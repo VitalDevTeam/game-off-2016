@@ -56,16 +56,12 @@ public class PlayerController : MonoBehaviour {
 
 	void StartAttack(){
 		weaponController.StartAttack(gameObject.transform.position, _heading);
-		if(alive == true) {
-			animator.SetBool("Attacking", true);
-			isAttacking = true;
-		}
+		animator.SetBool("Attacking", true);
 	}
 
 	void FinishAttack(){
 		weaponController.FinishAttack();
 		animator.SetBool("Attacking", false);
-		isAttacking = false;
 	}
 	
 	// Update is called once per frame
@@ -76,10 +72,7 @@ public class PlayerController : MonoBehaviour {
 			float frameSpeed = Speed;
 			Vector2 V = new Vector2(dX, dY);
 
-			rb.velocity = V.normalized * frameSpeed;
-			_heading = GetHeading();
-
-			if(Input.GetMouseButtonDown(0)){
+			if(Input.GetMouseButtonDown(0) && !weaponController.Cooldown){
 				StartAttack();
 			} else if(Input.GetMouseButtonUp(0)){
 				FinishAttack();
@@ -91,6 +84,9 @@ public class PlayerController : MonoBehaviour {
 			} else if (Input.GetKey(KeyCode.LeftShift)) {
 				frameSpeed *= 2.0f;
 			}
+
+			rb.velocity = V.normalized * frameSpeed;
+			_heading = GetHeading();
 			
 			animator.SetFloat("Heading", _heading);
 			animator.SetFloat("Speed", rb.velocity.magnitude);

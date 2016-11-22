@@ -20,8 +20,23 @@ public class WeaponController : MonoBehaviour, IWeapon {
 		get { return _isAttacking; }
 	}
 
+	private bool _cooldown = false;
+	public bool Cooldown {
+		get { return _cooldown; }
+	}
+
+	public float CooldownTime = 0.5f;
+
 	public GameObject Bullet;
 	public PlayerController Owner;
+
+	protected void ActivateCooldown(){
+		_cooldown = true;
+		Invoke("FinishCooldown", CooldownTime);
+	}
+	protected void FinishCooldown(){
+		_cooldown = false;
+	}
 	
 	protected void FireBullet(Vector3 Position, float Heading){
 		Quaternion Rotation = Quaternion.Euler(0, 0, Mathf.Lerp(0, 360, Heading));

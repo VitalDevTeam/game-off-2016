@@ -11,6 +11,8 @@ public class ShotgunController : WeaponController {
 		float halfArc = Spread * 0.5f;
 		float pelletHeading;
 
+		base.StartAttack(Position, Heading);
+
 		for(i=0; i<PelletCount; i++){
 			pelletHeading = Heading + Mathf.Lerp(-halfArc, halfArc, (float)i / (PelletCount-1));
 			while(pelletHeading > 1){ pelletHeading -= 1; }
@@ -18,5 +20,7 @@ public class ShotgunController : WeaponController {
 
 			FireBullet(Position, pelletHeading);
 		}
+
+		ActivateCooldown();
 	}
 }

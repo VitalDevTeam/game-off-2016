@@ -34,22 +34,24 @@ public class RifleController : WeaponController {
 	}
 
 	public override void StartAttack(Vector3 Position, float Heading){
+		base.StartAttack(Position, Heading);
+
 		if(Mode == FireMode.BURST_MODE){
 			burstHeading = Heading;
 			burstPosition = Position;
 			for(int i=0; i<BurstShots; i++){
 				Invoke("FireBurstShot", i * BurstRateOfFire);
 			}
+
+			ActivateCooldown();
+			
 		} else if(Mode == FireMode.AUTO_MODE){
 			InvokeRepeating("FireAutoShot", 0, AutoRateOfFire);
 		}
 	}
 
-	public override void ContinueAttack(Vector3 Position, float Heading){
-
-	}
-
 	public override void FinishAttack(){
+		base.FinishAttack();
 		CancelInvoke();
 	}
 }
