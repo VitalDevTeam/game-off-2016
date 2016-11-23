@@ -49,11 +49,13 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Enemy\EnemyController.cs" />
+     <Compile Include="Assets\Enemy\EnemyFollower.cs" />
      <Compile Include="Assets\Enemy\EnemyPatroller.cs" />
      <Compile Include="Assets\Player\PlayerController.cs" />
      <Compile Include="Assets\Projectiles\Bullet.cs" />
      <Compile Include="Assets\Room Prefab\Room.cs" />
      <Compile Include="Assets\Room Prefab\RoomEntryTrigger.cs" />
+     <Compile Include="Assets\Scripts\ActorController.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Weapons\Pistol\PistolController.cs" />

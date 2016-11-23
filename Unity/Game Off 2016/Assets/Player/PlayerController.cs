@@ -2,56 +2,11 @@
 using System.Collections;
 
 
-public class PlayerController : MonoBehaviour {
-	private const float tau = Mathf.PI * 2;
-	private float _heading = 0.75f;
-	private Rigidbody2D rb;
-	private Animator animator;
-	private bool isAttacking;
-	private BoxCollider2D collider;
-
-	private WeaponController weaponController;
-
-
-	public GameObject Weapon;
-
-	public float Speed = 3.0f;
-	public int startingHealth = 100;
-	public int currentHealth;
+public class PlayerController : ActorController {
     public int damagePerHit = 20;
-	public bool alive;
 
-	public float GetHeading(){
-		// Sprite faces mouse position
-		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		Vector2 V = mousePos - transform.position;
-		float ret;
-
-		if(V.x == 0 && V.y == 0){
-			ret = _heading;
-		} else {
-			float theta = Mathf.Atan2(V.y, V.x) % tau;
-			while(theta < 0){
-				theta += tau;
-			}
-			
-			ret = theta / tau;
-		}
-
-		return ret;
-	}
-
-	// Use this for initialization
-	void Start () {
-		rb = GetComponent<Rigidbody2D>();
-		animator = GetComponent<Animator>();
-        collider = GetComponent<BoxCollider2D>();
-
-		weaponController = Weapon.GetComponent<WeaponController>();
-		weaponController.Owner = this;
-
-        currentHealth = startingHealth;
-		alive = true;
+	public override void Start () {
+		base.Start();
 	}
 
 	void StartAttack(){
@@ -64,9 +19,8 @@ public class PlayerController : MonoBehaviour {
 		animator.SetBool("Attacking", false);
 	}
 	
-	// Update is called once per frame
 	void Update () {
-		if(alive) {
+		if(Alive) {
 			float dX = Input.GetAxis("Horizontal");
 			float dY = Input.GetAxis("Vertical");
 			float frameSpeed = Speed;
@@ -86,7 +40,7 @@ public class PlayerController : MonoBehaviour {
 			}
 
 			rb.velocity = V.normalized * frameSpeed;
-			_heading = GetHeading();
+			PointToMouse();
 			
 			animator.SetFloat("Heading", _heading);
 			animator.SetFloat("Speed", rb.velocity.magnitude);
@@ -130,7 +84,7 @@ public class PlayerController : MonoBehaviour {
         yield return new WaitForSeconds(1f);
 		
 		// if still alive, enable collider so plater can take more damage
-		if(alive == true) {
+		if(Alive) {
 			collider.enabled = true;
 		}
     }
@@ -139,7 +93,7 @@ public class PlayerController : MonoBehaviour {
 		// disable BoxCollider2D
 		collider.enabled = false;
 		// aaannnd... im dead.
-		alive = false;
+		_alive = false;
 	}
 	
 }

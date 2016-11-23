@@ -28,7 +28,7 @@ public class WeaponController : MonoBehaviour, IWeapon {
 	public float CooldownTime = 0.5f;
 
 	public GameObject Bullet;
-	public PlayerController Owner;
+	public ActorController Owner;
 
 	protected void ActivateCooldown(){
 		_cooldown = true;

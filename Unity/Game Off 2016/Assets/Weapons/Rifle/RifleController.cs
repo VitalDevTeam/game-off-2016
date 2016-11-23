@@ -21,14 +21,10 @@ public class RifleController : WeaponController {
 	}
 
 	private void FireAutoShot(){
-		float Heading = Owner.GetHeading();
+		float Heading = Owner.Heading;
 		Heading += Mathf.Lerp(-AutoSpread, AutoSpread, Random.value);
-		while(Heading < 0){
-			Heading += 1;
-		}
-		while(Heading > 1){
-			Heading -= 1;
-		}
+		while(Heading < 0){ Heading += 1; }
+		while(Heading > 1){ Heading -= 1; }
 
 		FireBullet(Owner.transform.position, Heading);
 	}
