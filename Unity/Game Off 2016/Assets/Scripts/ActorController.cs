@@ -34,10 +34,13 @@ public class ActorController : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
         collider = GetComponent<BoxCollider2D>();
-		weaponController = Weapon.GetComponent<WeaponController>();
+
+		if(Weapon) {
+			weaponController = Weapon.GetComponent<WeaponController>();
+			weaponController.Owner = this;
+		}
 
 		_alive = true;
-		weaponController.Owner = this;
         currentHealth = startingHealth;
 	}
 	
@@ -46,12 +49,12 @@ public class ActorController : MonoBehaviour {
 	
 	}
 
-	protected void PointToMouse(){
+	public void PointToMouse(){
 		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		PointTo(mousePos);
 	}
 
-	protected void PointTo(Vector3 pos){
+	public void PointTo(Vector3 pos){
 		Vector2 V = pos - transform.position;
 
 		if(V.x != 0 || V.y != 0){

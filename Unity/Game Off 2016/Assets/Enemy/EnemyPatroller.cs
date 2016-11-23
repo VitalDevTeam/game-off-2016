@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class EnemyPatroller : MonoBehaviour {
-	public float Speed = 2.0f;
 	public Transform[] Waypoints;
 	private int activeWaypointIndex = 0;
 
@@ -16,10 +15,10 @@ public class EnemyPatroller : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if(!ec.isDead) {
+		if(ec.Alive) {
 
 			Transform waypoint = Waypoints[activeWaypointIndex];
-			transform.position = Vector3.MoveTowards(transform.position, waypoint.position, Speed * Time.deltaTime);
+			transform.position = Vector3.MoveTowards(transform.position, waypoint.position, ec.Speed * Time.deltaTime);
 			if(transform.position == waypoint.position){
 				activeWaypointIndex = (activeWaypointIndex + 1) % Waypoints.Length;
 			}

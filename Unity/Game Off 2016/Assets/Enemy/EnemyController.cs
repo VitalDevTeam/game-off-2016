@@ -1,28 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyController : MonoBehaviour {
+public class EnemyController : ActorController {
 
-	public int startingHealth = 100;            // The amount of health the enemy starts the game with.
-    public int currentHealth;                   // The current health the enemy has.
-    public int damagePerShot = 20;              // The damage inflicted by each bullet.
-    public bool isDead;                         // Whether the enemy is dead.
+    public int damagePerShot = 20;
 
-    private Animator animator;
-    private BoxCollider2D collider;
-
-	// Use this for initialization
 	void Start () { 
-		
-        animator = GetComponent<Animator>();
-        collider = GetComponent<BoxCollider2D>();
-
-        // Setting the current health when the enemy first spawns.
-        currentHealth = startingHealth;
-	
+        base.Start();
 	}
 	
-	// Update is called once per frame
 	void Update () {
 	
 	}
@@ -30,23 +16,24 @@ public class EnemyController : MonoBehaviour {
 	void Shoot(){
 
 		// If the enemy is dead...
-        if(isDead)
-            // no need to take damage so exit the function.
-            return;
+        if(Alive) {
         
-        // Play hit animation
-        StartCoroutine(Hit());
+            // Play hit animation
+            StartCoroutine(Hit());
 
-        // Reduce the current health by the amount of damage sustained.
-        currentHealth -= damagePerShot;
+            // Reduce the current health by the amount of damage sustained.
+            currentHealth -= damagePerShot;
 
-        // If the current health is less than or equal to zero...
-        if(currentHealth <= 0) {
-            // ... the enemy is dead.
-            Die ();
+            // If the current health is less than or equal to zero...
+            if(currentHealth <= 0) {
+                // ... the enemy is dead.
+                Die ();
+            }
+
+            Debug.LogFormat("Oh my God, you shot the {0}!", gameObject.name);
+
         }
-
-		Debug.LogFormat("Oh my God, you shot the {0}!", gameObject.name);
+            
 	}
 
     IEnumerator Hit() {
@@ -56,7 +43,7 @@ public class EnemyController : MonoBehaviour {
     }
 
 	void Die () {
-        isDead = true;
+        _alive = false;
         collider.enabled = false;
         animator.SetBool("Dead", true);
     }
