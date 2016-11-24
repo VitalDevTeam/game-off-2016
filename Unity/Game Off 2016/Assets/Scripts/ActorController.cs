@@ -7,6 +7,7 @@ public class ActorController : MonoBehaviour {
 	protected bool _invincible = false;
 	protected bool _alive = true;
 	protected float _heading;
+	protected SpriteRenderer sprite;
 	protected Rigidbody2D rb;
 	protected Animator animator;
 	protected BoxCollider2D collider;
@@ -35,6 +36,7 @@ public class ActorController : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
         collider = GetComponent<BoxCollider2D>();
+		sprite = GetComponent<SpriteRenderer>();
 
 		if(Weapon) {
 			weaponController = Weapon.GetComponent<WeaponController>();

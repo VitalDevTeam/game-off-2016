@@ -19,6 +19,12 @@ public class PlayerController : ActorController {
 	
 	void Update () {
 		if(Alive) {
+			if(_invincible){
+				sprite.enabled = !sprite.enabled;
+			} else {
+				sprite.enabled = true;
+			}
+
 			float dX = Input.GetAxis("Horizontal");
 			float dY = Input.GetAxis("Vertical");
 			float frameSpeed = Speed;
