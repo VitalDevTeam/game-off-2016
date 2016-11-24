@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bullet : MonoBehaviour {
+public class BulletController : MonoBehaviour {
 	public float Speed = 6.0f;
+	public float Damage = 5.0f;
 	public AudioClip CreationSound;
 	public AudioClip DeathSound;
 

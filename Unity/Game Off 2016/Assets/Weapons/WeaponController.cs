@@ -11,7 +11,7 @@ public interface IWeapon{
 	void ContinueAttack(Vector3 Position, float Heading);
 
 	//Called on the frame when the player releases the attack button
-	void FinishAttack();
+	void FinishAttack(Vector3 Position, float Heading);
 }
 
 public class WeaponController : MonoBehaviour, IWeapon {
@@ -38,9 +38,9 @@ public class WeaponController : MonoBehaviour, IWeapon {
 		_cooldown = false;
 	}
 	
-	protected void FireBullet(Vector3 Position, float Heading){
+	protected Object FireBullet(Vector3 Position, float Heading){
 		Quaternion Rotation = Quaternion.Euler(0, 0, Mathf.Lerp(0, 360, Heading));
-		Instantiate(Bullet, Position, Rotation);
+		return Instantiate(Bullet, Position, Rotation);
 	}
 
 	public virtual void StartAttack(Vector3 Position, float Heading){
@@ -50,7 +50,7 @@ public class WeaponController : MonoBehaviour, IWeapon {
 	public virtual void ContinueAttack(Vector3 Position, float Heading){
 	}
 
-	public virtual void FinishAttack(){
+	public virtual void FinishAttack(Vector3 Position, float Heading){
 		_isAttacking = false;
 	}
 }

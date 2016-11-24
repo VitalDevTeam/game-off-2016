@@ -15,7 +15,7 @@ public class PlayerController : ActorController {
 	}
 
 	void FinishAttack(){
-		weaponController.FinishAttack();
+		weaponController.FinishAttack(gameObject.transform.position, _heading);
 		animator.SetBool("Attacking", false);
 	}
 	

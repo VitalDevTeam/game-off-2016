@@ -46,8 +46,10 @@ public class RifleController : WeaponController {
 		}
 	}
 
-	public override void FinishAttack(){
-		base.FinishAttack();
-		CancelInvoke();
+	public override void FinishAttack(Vector3 Position, float Heading){
+		base.FinishAttack(Position, Heading);
+		if(Mode == FireMode.AUTO_MODE){
+			CancelInvoke();
+		}
 	}
 }
