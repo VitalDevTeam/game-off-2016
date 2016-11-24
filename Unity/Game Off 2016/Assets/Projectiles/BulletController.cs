@@ -28,7 +28,7 @@ public class BulletController : MonoBehaviour {
 	}
 
 	void HitObject(Collider2D other){
-		other.gameObject.SendMessage("Shoot", null, SendMessageOptions.DontRequireReceiver);
+		other.gameObject.SendMessage("TakeDamage", Damage, SendMessageOptions.DontRequireReceiver);
 
 		audioSource.clip = DeathSound;
 		audioSource.Play();

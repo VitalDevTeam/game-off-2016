@@ -3,8 +3,6 @@ using System.Collections;
 
 
 public class PlayerController : ActorController {
-    public int damagePerHit = 20;
-
 	public override void Start () {
 		base.Start();
 	}
@@ -49,27 +47,23 @@ public class PlayerController : ActorController {
 		}
 	}
 
-	void Shoot(){
-		print("I've been shot!");
+	public override void TakeDamage(float damage){
+		base.TakeDamage(damage);
+		if(Alive){
+			StartCoroutine(Hit());
+		}
 	}
 
  	void OnCollisionEnter2D(Collision2D col) {
-		// Take damage if you touch an enemy
-		if (col.gameObject.name == "Patroller") {
-
-				StartCoroutine(Hit());
-				currentHealth -= damagePerHit;
-
-				if(currentHealth <= 0) {
-					Die();
-				}
-			Debug.LogFormat("I've been hit! Life is at {0}", currentHealth);
-
+		if(col.gameObject.layer == 10){ //Enemies
+			EnemyController ec = col.gameObject.GetComponent<EnemyController>();
+			TakeDamage(ec.TouchDamage);
 		}
     }
+
     IEnumerator Hit() {
-		// disable collider so player can't get hit again immediately.
-		collider.enabled = false;
+		// temporarily invincible so player can't get hit again immediately.
+		_invincible = true;
 
 		// blink sprite three times
 		GetComponent<Renderer>().enabled = false;
@@ -85,15 +79,8 @@ public class PlayerController : ActorController {
 		
 		// if still alive, enable collider so plater can take more damage
 		if(Alive) {
-			collider.enabled = true;
+			_invincible = false;
 		}
     }
-
-	void Die() {
-		// disable BoxCollider2D
-		collider.enabled = false;
-		// aaannnd... im dead.
-		_alive = false;
-	}
 	
 }

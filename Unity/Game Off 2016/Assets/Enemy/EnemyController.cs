@@ -2,38 +2,19 @@
 using System.Collections;
 
 public class EnemyController : ActorController {
-
-    public int damagePerShot = 20;
-
-	void Start () { 
+    public float TouchDamage = 5.0f;
+    
+	public override void Start () { 
         base.Start();
 	}
-	
-	void Update () {
-	
-	}
 
-	void Shoot(){
-
-		// If the enemy is dead...
-        if(Alive) {
-        
-            // Play hit animation
-            StartCoroutine(Hit());
-
-            // Reduce the current health by the amount of damage sustained.
-            currentHealth -= damagePerShot;
-
-            // If the current health is less than or equal to zero...
-            if(currentHealth <= 0) {
-                // ... the enemy is dead.
-                Die ();
-            }
-
-            Debug.LogFormat("Oh my God, you shot the {0}!", gameObject.name);
-
+	public override void TakeDamage(float damage){
+		base.TakeDamage(damage);
+		if(Alive){
+			StartCoroutine(Hit());
+		} else {
+            Die();
         }
-            
 	}
 
     IEnumerator Hit() {
@@ -43,8 +24,7 @@ public class EnemyController : ActorController {
     }
 
 	void Die () {
-        _alive = false;
-        collider.enabled = false;
+		Debug.LogFormat("Enemy “{0}” died!", gameObject.name);
         animator.SetBool("Dead", true);
     }
 
