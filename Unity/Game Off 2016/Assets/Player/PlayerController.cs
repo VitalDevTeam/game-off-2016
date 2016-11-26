@@ -3,8 +3,12 @@ using System.Collections;
 
 
 public class PlayerController : ActorController {
+	private AudioSource audio;
+	public AudioClip[] PainSounds;
+	
 	public override void Start () {
 		base.Start();
+		audio = GetComponent<AudioSource>();
 	}
 
 	void StartAttack(){
@@ -76,6 +80,11 @@ public class PlayerController : ActorController {
     IEnumerator Hit() {
 		// temporarily invincible so player can't get hit again immediately.
 		_invincible = true;
+
+		AudioClip cry;
+		cry = PainSounds[Random.Range(0, PainSounds.Length)];
+		audio.clip = cry;
+		audio.Play();
 
 		// blink sprite three times
 		GetComponent<Renderer>().enabled = false;
