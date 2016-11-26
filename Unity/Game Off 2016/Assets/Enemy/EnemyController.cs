@@ -3,6 +3,7 @@ using System.Collections;
 
 public class EnemyController : ActorController {
     public float TouchDamage = 5.0f;
+    public int PointValue = 100;
     
 	public override void Start () { 
         base.Start();
@@ -25,6 +26,7 @@ public class EnemyController : ActorController {
 
 	void Die () {
 		Debug.LogFormat("Enemy “{0}” died!", gameObject.name);
+        GameController.AddPoints(PointValue);
         animator.SetBool("Dead", true);
     }
 
