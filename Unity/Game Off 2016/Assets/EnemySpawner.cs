@@ -8,8 +8,8 @@ public class EnemySpawner : MonoBehaviour {
 	private float height;
 	
 	private bool Active = false;
-	public float DefaultSpawnPeriod = 4.0f;
-	public float SpawnPeriodDecayRate = 0.1f;
+	public float DefaultSpawnPeriod = 8.0f;
+	public float SpawnPeriodDecayRate = 0.05f;
 	public float MinSpawnPeriod = 1.0f;
 
 	private float SpawnPeriod;
@@ -43,7 +43,8 @@ public class EnemySpawner : MonoBehaviour {
 		spawn = (GameObject)Instantiate(EnemyPrefab, Position, Quaternion.identity);
 		spawn.transform.parent = transform;
 
-		SpawnPeriod *= (1-SpawnPeriodDecayRate);
+		SpawnPeriod = Mathf.Clamp(SpawnPeriod*(1-SpawnPeriodDecayRate), MinSpawnPeriod, DefaultSpawnPeriod);
+		Debug.LogFormat("Spawn next enemy in {0}s", SpawnPeriod);
 		Invoke("SpawnEnemy", SpawnPeriod);
 	}
 
