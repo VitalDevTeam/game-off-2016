@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 
 public class GameController : MonoBehaviour {
-	static GameController instance = null;
 	private static int _score = 0;
 	public static int Score{
 		get { return _score; }
@@ -13,6 +12,7 @@ public class GameController : MonoBehaviour {
 			_score += value;
 		}
 	}
+	public GameObject GameOverScreen;
 
 	public static void AddPoints(int P){
 		_score += P;
@@ -21,18 +21,18 @@ public class GameController : MonoBehaviour {
 		Text scoreText = Score.GetComponent<Text>();
 		scoreText.text = _score.ToString();
 	}
+
+	public void GameOver(){
+		GameOverScreen.SetActive(true);
+	}
 	
 	void Start () {
-		if (instance != null && instance != this) {
-			Destroy (gameObject);
-			print ("Duplicate game controller self-destructing!");
-		} else {
-			instance = this;
-			GameObject.DontDestroyOnLoad(gameObject);
-		}
+		GameOverScreen.SetActive(false);
+		_score = 0;
 	}
 
 	public void GoToScene (string sceneName) {
+		Debug.LogFormat("Go to Scene {0}", sceneName);
 		SceneManager.LoadScene(sceneName);
 	}
 }

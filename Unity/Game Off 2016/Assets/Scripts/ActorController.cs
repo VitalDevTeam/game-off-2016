@@ -62,7 +62,7 @@ public class ActorController : MonoBehaviour {
 		}
 	}
 
-	void Die() {
+	protected virtual void Die() {
 		// Debug.LogFormat("Actor “{0}” died!", gameObject.name);
 		// disable BoxCollider2D
 		collider.enabled = false;

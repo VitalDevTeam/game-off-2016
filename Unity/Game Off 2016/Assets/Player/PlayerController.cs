@@ -67,6 +67,12 @@ public class PlayerController : ActorController {
 		}
     }
 
+	protected override void Die(){
+		base.Die();
+		GameController gc = GameObject.Find("GameController").GetComponent<GameController>();
+		gc.GameOver();
+	}
+
     IEnumerator Hit() {
 		// temporarily invincible so player can't get hit again immediately.
 		_invincible = true;
@@ -83,10 +89,7 @@ public class PlayerController : ActorController {
 		// wait a bit
         yield return new WaitForSeconds(1f);
 		
-		// if still alive, enable collider so plater can take more damage
-		if(Alive) {
-			_invincible = false;
-		}
+		_invincible = false;
     }
 	
 }
