@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 
 public class GameController : MonoBehaviour {
+	static GameController instance = null;
 	private static int _score = 0;
 	public static int Score{
 		get { return _score; }
@@ -13,6 +14,8 @@ public class GameController : MonoBehaviour {
 		}
 	}
 	public GameObject GameOverScreen;
+	public RectTransform HealthMeter;
+	private float HealthMeterWidth;
 
 	public static void AddPoints(int P){
 		_score += P;
@@ -22,11 +25,20 @@ public class GameController : MonoBehaviour {
 		scoreText.text = _score.ToString();
 	}
 
+	public static void UpdateHealthMeter(float Health){
+		instance.HealthMeter.sizeDelta = new Vector2(700.0f * Health, 84.0f);
+	}
+
 	public void GameOver(){
 		GameOverScreen.SetActive(true);
 	}
+
+	void Awake() {
+		GameController.instance = this;
+	}
 	
 	void Start () {
+		HealthMeterWidth = HealthMeter.rect.width;
 		GameOverScreen.SetActive(false);
 		_score = 0;
 	}

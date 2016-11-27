@@ -52,6 +52,7 @@ public class PlayerController : ActorController {
 			
 			animator.SetFloat("Heading", _heading);
 			animator.SetFloat("Speed", rb.velocity.magnitude);
+			GameController.UpdateHealthMeter(Health / MaxHealth);
 		} else {
 			rb.velocity = Vector2.zero;
 		}
