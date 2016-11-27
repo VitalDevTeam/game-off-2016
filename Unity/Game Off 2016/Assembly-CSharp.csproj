@@ -51,9 +51,11 @@
      <Compile Include="Assets\Enemy\Scripts\EnemyController.cs" />
      <Compile Include="Assets\Enemy\Scripts\EnemyFollower.cs" />
      <Compile Include="Assets\Enemy\Scripts\EnemyPatroller.cs" />
-     <Compile Include="Assets\EnemyRandomShooter.cs" />
-     <Compile Include="Assets\EnemySpawner.cs" />
+     <Compile Include="Assets\Enemy\Scripts\EnemyRandomShooter.cs" />
+     <Compile Include="Assets\Enemy\Scripts\EnemySpawner.cs" />
      <Compile Include="Assets\Player\PlayerController.cs" />
+     <Compile Include="Assets\Powerups\HealthPowerup.cs" />
+     <Compile Include="Assets\Powerups\WeaponPowerup.cs" />
      <Compile Include="Assets\Projectiles\BulletController.cs" />
      <Compile Include="Assets\Room Prefab\Room.cs" />
      <Compile Include="Assets\Room Prefab\RoomEntryTrigger.cs" />

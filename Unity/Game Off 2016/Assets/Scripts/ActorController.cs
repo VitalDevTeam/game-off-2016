@@ -12,6 +12,8 @@ public class ActorController : MonoBehaviour {
 	protected Animator animator;
 	protected BoxCollider2D collider;
 	protected WeaponController weaponController;
+	protected float _health;
+	protected GameObject _weapon;
 
 	public bool Alive{ 
 		get { return _alive; } 
@@ -28,8 +30,19 @@ public class ActorController : MonoBehaviour {
 
 	public float Speed = 3.0f;
 	public float MaxHealth = 100.0f;
-	public float Health;
-	public GameObject Weapon;
+	public float Health {
+		get { return _health; }
+		set { _health = Mathf.Clamp(value, 0, MaxHealth); }
+	}
+
+	public GameObject Weapon {
+		get { return _weapon; }
+		set { 
+			_weapon = value; 
+			weaponController = _weapon.GetComponent<WeaponController>();
+			weaponController.Owner = this;
+		}
+	}
 
 	// Use this for initialization
 	public virtual void Start () {
@@ -37,11 +50,6 @@ public class ActorController : MonoBehaviour {
 		animator = GetComponent<Animator>();
         collider = GetComponent<BoxCollider2D>();
 		sprite = GetComponent<SpriteRenderer>();
-
-		if(Weapon) {
-			weaponController = Weapon.GetComponent<WeaponController>();
-			weaponController.Owner = this;
-		}
 
 		_alive = true;
         Health = MaxHealth;

@@ -27,6 +27,7 @@ public class EnemyController : ActorController {
 	void Die () {
 		Debug.LogFormat("Enemy “{0}” died!", gameObject.name);
         GameController.AddPoints(PointValue);
+        GameController.SpawnPowerup(transform.position);
         animator.SetBool("Dead", true);
     }
 

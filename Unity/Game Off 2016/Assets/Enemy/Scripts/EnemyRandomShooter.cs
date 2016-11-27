@@ -3,7 +3,8 @@ using System.Collections;
 
 public class EnemyRandomShooter : MonoBehaviour {
 	private GameObject Player;
-	private WeaponController Weapon;
+	private WeaponController _weapon;
+	public GameObject Weapon;
 	private EnemyController ec;
 	private bool _attacking = false;
 
@@ -11,19 +12,19 @@ public class EnemyRandomShooter : MonoBehaviour {
 	public GameObject Target;
 	
 	void Start(){
-		ec = GetComponent<EnemyController>();
-		Weapon = ec.Weapon.GetComponent<WeaponController>();
 		Player = GameObject.Find("Player");
 		Target = Player;
+		ec = GetComponent<EnemyController>();
+		_weapon = Weapon.GetComponent<WeaponController>();
 	}
 
 	void FinishAttack(){
-		Weapon.FinishAttack(gameObject.transform.position, ec.Heading);
+		_weapon.FinishAttack(gameObject.transform.position, ec.Heading);
 		_attacking = false;
 	}
 
 	void StartAttack(){
-		Weapon.StartAttack(gameObject.transform.position, ec.Heading);
+		_weapon.StartAttack(gameObject.transform.position, ec.Heading);
 		_attacking = true;
 	}
 
@@ -32,7 +33,7 @@ public class EnemyRandomShooter : MonoBehaviour {
 			ec.PointTo(Target.transform.position);
 			if(Random.value <= AggressionLevel && !_attacking){
 				StartAttack();
-				Invoke("FinishAttack", Weapon.CooldownTime);
+				Invoke("FinishAttack", _weapon.CooldownTime);
 			}
 		}
 	}

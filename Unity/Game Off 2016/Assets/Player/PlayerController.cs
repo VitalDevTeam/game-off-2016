@@ -5,20 +5,26 @@ using System.Collections;
 public class PlayerController : ActorController {
 	private AudioSource audio;
 	public AudioClip[] PainSounds;
+	public GameObject DefaultWeapon;
 	
 	public override void Start () {
 		base.Start();
 		audio = GetComponent<AudioSource>();
+		Weapon = DefaultWeapon;
 	}
 
 	void StartAttack(){
-		weaponController.StartAttack(gameObject.transform.position, _heading);
-		animator.SetBool("Attacking", true);
+		if(weaponController){
+			weaponController.StartAttack(gameObject.transform.position, _heading);
+			animator.SetBool("Attacking", true);
+		}
 	}
 
 	void FinishAttack(){
-		weaponController.FinishAttack(gameObject.transform.position, _heading);
-		animator.SetBool("Attacking", false);
+		if(weaponController){
+			weaponController.FinishAttack(gameObject.transform.position, _heading);
+			animator.SetBool("Attacking", false);
+		}
 	}
 	
 	void Update () {
@@ -40,7 +46,7 @@ public class PlayerController : ActorController {
 				FinishAttack();
 			}
 
-			if (weaponController.IsAttacking) {
+			if (weaponController && weaponController.IsAttacking) {
 				weaponController.ContinueAttack(gameObject.transform.position, _heading);
 				frameSpeed *= 0.75f;
 			} else if (Input.GetKey(KeyCode.LeftShift)) {

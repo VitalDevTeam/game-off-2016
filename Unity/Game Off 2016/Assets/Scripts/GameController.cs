@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour {
 	public GameObject GameOverScreen;
 	public RectTransform HealthMeter;
 	private float HealthMeterWidth;
+	public GameObject[] Powerups;
+	public float PowerupDropRate = 1.0f;
 
 	public static void AddPoints(int P){
 		_score += P;
@@ -46,5 +48,14 @@ public class GameController : MonoBehaviour {
 	public void GoToScene (string sceneName) {
 		Debug.LogFormat("Go to Scene {0}", sceneName);
 		SceneManager.LoadScene(sceneName);
+	}
+
+	public static void SpawnPowerup(Vector3 position){
+		GameObject powerup;
+
+		if(Random.value <= instance.PowerupDropRate){
+			powerup = instance.Powerups[Random.Range(0, instance.Powerups.Length)];
+			Instantiate(powerup, position, Quaternion.identity);
+		}
 	}
 }
