@@ -26,6 +26,15 @@ public class PlayerController : ActorController {
 			animator.SetBool("Attacking", false);
 		}
 	}
+
+	void LateUpdate(){
+		float theta = (_heading * 360) - 90;
+		while(theta < 0){
+			theta += 360;
+		}
+
+		transform.rotation = Quaternion.Euler(0, 0, theta);
+	}
 	
 	void Update () {
 		if(Alive) {
