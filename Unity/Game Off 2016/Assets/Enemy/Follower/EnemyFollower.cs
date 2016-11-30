@@ -14,7 +14,12 @@ public class EnemyFollower : MonoBehaviour {
 
 	void Update () {
 		ec.PointTo(player.position);
-        transform.rotation = Quaternion.Euler(0, 0, ec.Heading * 360);
+		float theta = (ec.Heading * 360) + 90;
+		while(theta < 0){
+			theta += 360;
+		}
+
+		transform.rotation = Quaternion.Euler(0, 0, theta);
 		transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
 	}
 	
