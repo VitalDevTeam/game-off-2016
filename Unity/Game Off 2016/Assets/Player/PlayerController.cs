@@ -70,6 +70,9 @@ public class PlayerController : ActorController {
 			GameController.UpdateHealthMeter(Health / MaxHealth);
 		} else {
 			rb.velocity = Vector2.zero;
+			if (weaponController && weaponController.IsAttacking) {
+				weaponController.FinishAttack(gameObject.transform.position, _heading);
+			}
 		}
 	}
 
