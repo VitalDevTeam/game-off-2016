@@ -10,7 +10,7 @@ public class ActorController : MonoBehaviour {
 	protected SpriteRenderer sprite;
 	protected Rigidbody2D rb;
 	protected Animator animator;
-	protected BoxCollider2D collider;
+	protected Collider2D collider;
 	protected WeaponController weaponController;
 	protected float _health;
 	protected GameObject _weapon;
@@ -48,7 +48,7 @@ public class ActorController : MonoBehaviour {
 	public virtual void Start () {
 		rb = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
-        collider = GetComponent<BoxCollider2D>();
+        collider = GetComponent<Collider2D>();
 		sprite = GetComponent<SpriteRenderer>();
 
 		_alive = true;
