@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	public static void UpdateHealthMeter(float Health){
-		instance.HealthMeter.sizeDelta = new Vector2(700.0f * Health, 84.0f);
+		instance.HealthMeter.sizeDelta = new Vector2(350.0f * Health, 84.0f);
 	}
 
 	public void GameOver(){
