@@ -13,6 +13,10 @@ public class CameraController : MonoBehaviour {
 	private float minY;
 	private float maxY;
 
+	public float Shake = 0f;
+	public float ShakeAmplitude = 0.125f;
+	float ShakeDecay = 1.0f;
+
 	public Room CurrentRoom
 	{
 		get { return _currentRoom; }
@@ -58,6 +62,13 @@ public class CameraController : MonoBehaviour {
 	}
 
 	void LateUpdate(){
+		if (Shake > 0) {
+			transform.localPosition += (Vector3)(Random.insideUnitCircle * ShakeAmplitude);
+			Shake -= Time.deltaTime * ShakeDecay;
+		
+		} else {
+			Shake = 0.0f;
+		}
 		StayInsideRoom();
 	} 
 }

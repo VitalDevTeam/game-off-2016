@@ -8,6 +8,7 @@ public class PlayerController : ActorController {
 	public GameObject DefaultWeapon;
 	public GameObject WeaponSpriteContainer;
 	private SpriteRenderer WeaponSprite;
+	private CameraController camera;
 
 	public override GameObject Weapon {
 		get { return _weapon; }
@@ -32,6 +33,7 @@ public class PlayerController : ActorController {
 		audio = GetComponent<AudioSource>();
 		WeaponSprite = WeaponSpriteContainer.GetComponent<SpriteRenderer>();
 		Weapon = DefaultWeapon;
+		camera = Camera.main.GetComponent<CameraController>();
 	}
 
 	void StartAttack(){
@@ -117,7 +119,7 @@ public class PlayerController : ActorController {
 
 	protected override void Die(){
 		weaponController.FinishAttack(transform.position, Heading);
-		
+
 		base.Die();
 		GameController gc = GameObject.Find("GameController").GetComponent<GameController>();
 		gc.GameOver();
@@ -126,6 +128,8 @@ public class PlayerController : ActorController {
     IEnumerator Hit() {
 		// temporarily invincible so player can't get hit again immediately.
 		_invincible = true;
+
+		camera.Shake = 0.125f;
 
 		AudioClip cry;
 		cry = PainSounds[Random.Range(0, PainSounds.Length)];
