@@ -12,6 +12,12 @@ public class PlayerController : ActorController {
 	public override GameObject Weapon {
 		get { return _weapon; }
 		set { 
+			if(_weapon){
+				WeaponController oldController = _weapon.GetComponent<WeaponController>();
+				if(oldController.IsAttacking){
+					oldController.FinishAttack(transform.position, Heading);
+				}
+			}
 			_weapon = value; 
 			weaponController = _weapon.GetComponent<WeaponController>();
 			if(weaponController){
