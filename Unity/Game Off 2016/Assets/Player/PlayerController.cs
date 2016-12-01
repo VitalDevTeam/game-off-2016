@@ -116,6 +116,8 @@ public class PlayerController : ActorController {
     }
 
 	protected override void Die(){
+		weaponController.FinishAttack(transform.position, Heading);
+		
 		base.Die();
 		GameController gc = GameObject.Find("GameController").GetComponent<GameController>();
 		gc.GameOver();
