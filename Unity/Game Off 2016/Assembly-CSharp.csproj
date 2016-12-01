@@ -54,7 +54,7 @@
      <Compile Include="Assets\Enemy\Patroller\EnemyPatroller.cs" />
      <Compile Include="Assets\Enemy\Turret\EnemyRandomShooter.cs" />
      <Compile Include="Assets\Player\PlayerController.cs" />
-     <Compile Include="Assets\Powerups\HealthPowerup.cs" />
+     <Compile Include="Assets\Powerups\Health\HealthPowerup.cs" />
      <Compile Include="Assets\Powerups\WeaponPowerup.cs" />
      <Compile Include="Assets\Projectiles\BulletController.cs" />
      <Compile Include="Assets\Room Prefab\Room.cs" />
