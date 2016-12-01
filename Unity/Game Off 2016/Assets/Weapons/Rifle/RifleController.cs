@@ -26,7 +26,7 @@ public class RifleController : WeaponController {
 		while(Heading < 0){ Heading += 1; }
 		while(Heading > 1){ Heading -= 1; }
 
-		FireBullet(Owner.transform.position, Heading);
+		FireBullet(((PlayerController)(Owner)).BulletOriginPoint.transform.position, Heading);
 	}
 
 	public override void StartAttack(Vector3 Position, float Heading){

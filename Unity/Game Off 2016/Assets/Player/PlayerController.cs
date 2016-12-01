@@ -7,6 +7,7 @@ public class PlayerController : ActorController {
 	public AudioClip[] PainSounds;
 	public GameObject DefaultWeapon;
 	public GameObject WeaponSpriteContainer;
+	public GameObject BulletOriginPoint;
 	private SpriteRenderer WeaponSprite;
 	private CameraController camera;
 
@@ -38,14 +39,14 @@ public class PlayerController : ActorController {
 
 	void StartAttack(){
 		if(weaponController){
-			weaponController.StartAttack(gameObject.transform.position, _heading);
+			weaponController.StartAttack(BulletOriginPoint.transform.position, _heading);
 			animator.SetBool("Attacking", true);
 		}
 	}
 
 	void FinishAttack(){
 		if(weaponController){
-			weaponController.FinishAttack(gameObject.transform.position, _heading);
+			weaponController.FinishAttack(BulletOriginPoint.transform.position, _heading);
 			animator.SetBool("Attacking", false);
 		}
 	}
