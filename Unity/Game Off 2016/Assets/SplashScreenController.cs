@@ -6,4 +6,8 @@ public class SplashScreenController : MonoBehaviour {
 	public void Complete(){
 		SceneManager.LoadScene("Title Screen");
 	}
+
+	public void SayVital(){
+		GetComponent<AudioSource>().Play();
+	}
 }
