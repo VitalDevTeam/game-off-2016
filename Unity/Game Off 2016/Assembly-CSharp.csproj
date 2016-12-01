@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\ActorController.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\SplashScreenController.cs" />
      <Compile Include="Assets\Weapons\Bazooka\BazookaController.cs" />
      <Compile Include="Assets\Weapons\Pistol\PistolController.cs" />
      <Compile Include="Assets\Weapons\Rifle\RifleController.cs" />
