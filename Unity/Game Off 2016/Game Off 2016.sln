@@ -1,5 +1,6 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
 Project("{02CF6FC1-FDBA-745F-0C1F-B67438A50844}") = "Game Off 2016", "Assembly-CSharp.csproj", "{D9F397E6-9308-28E9-C1C5-00BC81B98AA7}"
 EndProject
 Project("{02CF6FC1-FDBA-745F-0C1F-B67438A50844}") = "Game Off 2016", "Assembly-CSharp-Editor-firstpass.csproj", "{1DDE4B2F-6E28-7A1D-B1B1-79944FAF4350}"
@@ -18,6 +19,9 @@ Global
 		{1DDE4B2F-6E28-7A1D-B1B1-79944FAF4350}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DDE4B2F-6E28-7A1D-B1B1-79944FAF4350}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DDE4B2F-6E28-7A1D-B1B1-79944FAF4350}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
