@@ -20,13 +20,13 @@ The only way to rid her dream agency of this vile zombie threat is for Syd to ha
 
 ## Contributors
 
-Max Avedisian
-Jonathan Balas
-Matt Chase
-Chuck McMahon
-Dan Mesinger
-Jesse Rand
-Donny Wilson
+* Max Avedisian
+* Jonathan Balas
+* Matt Chase
+* Chuck McMahon
+* Dan Mensinger
+* Jesse Rand
+* Donny Wilson
 
 # GitHub Game Off 2016
 
@@ -155,7 +155,7 @@ GLHF! <3
 [game-off-repo-issues]: https://github.com/github/game-off-2016/issues
 [git-documentation]:    https://git-scm.com/documentation
 [github-help]:          https://help.github.com/
-[github-signup]:        https://github.com/signup/free  
+[github-signup]:        https://github.com/signup/free
 [github-signup-org]:    https://github.com/organizations/new
 [github-support]:       https://github.com/contact?form%5Bsubject%5D=GitHub%20Game%20Off
 [wufoo-form]:           https://gameoff.wufoo.com/forms/game-off-2016/
