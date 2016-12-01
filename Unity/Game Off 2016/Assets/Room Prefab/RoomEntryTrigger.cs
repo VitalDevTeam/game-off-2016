@@ -7,4 +7,10 @@ public class RoomEntryTrigger : MonoBehaviour {
 			gameObject.transform.parent.SendMessage("EnterRoom");
 		}
 	}
+
+	void OnTriggerExit2D(Collider2D other){
+		if(other.tag == "Player"){
+			gameObject.transform.parent.SendMessage("ExitRoom");
+		}
+	}
 }
