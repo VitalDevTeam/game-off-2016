@@ -15,6 +15,8 @@ public interface IWeapon{
 }
 
 public class WeaponController : MonoBehaviour, IWeapon {
+	public Sprite sprite;
+	
 	private bool _isAttacking;
 	public bool IsAttacking {
 		get { return _isAttacking; }

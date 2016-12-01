@@ -35,7 +35,7 @@ public class ActorController : MonoBehaviour {
 		set { _health = Mathf.Clamp(value, 0, MaxHealth); }
 	}
 
-	public GameObject Weapon {
+	public virtual GameObject Weapon {
 		get { return _weapon; }
 		set { 
 			_weapon = value; 

@@ -6,10 +6,25 @@ public class PlayerController : ActorController {
 	private AudioSource audio;
 	public AudioClip[] PainSounds;
 	public GameObject DefaultWeapon;
+	public GameObject WeaponSpriteContainer;
+	private SpriteRenderer WeaponSprite;
+
+	public override GameObject Weapon {
+		get { return _weapon; }
+		set { 
+			_weapon = value; 
+			weaponController = _weapon.GetComponent<WeaponController>();
+			if(weaponController){
+				weaponController.Owner = this;
+				WeaponSprite.sprite = weaponController.sprite;
+			}
+		}
+	}
 	
 	public override void Start () {
 		base.Start();
 		audio = GetComponent<AudioSource>();
+		WeaponSprite = WeaponSpriteContainer.GetComponent<SpriteRenderer>();
 		Weapon = DefaultWeapon;
 	}
 
@@ -34,6 +49,10 @@ public class PlayerController : ActorController {
 		}
 
 		transform.rotation = Quaternion.Euler(0, 0, theta);
+	}
+
+	void OnDrawGizmos(){
+		Gizmos.DrawWireSphere(WeaponSpriteContainer.transform.position, 0.15f);
 	}
 	
 	void Update () {
