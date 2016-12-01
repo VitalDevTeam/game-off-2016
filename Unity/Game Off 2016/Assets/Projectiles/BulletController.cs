@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class BulletController : MonoBehaviour {
+	private float TimeToLive = 2.0f;
 	public float Speed = 6.0f;
 	public float Damage = 5.0f;
 	public AudioClip CreationSound;
@@ -23,6 +24,8 @@ public class BulletController : MonoBehaviour {
 
 		float theta = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
 		rb.velocity = new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), 0) * Speed;
+
+		Invoke("Evaporate", TimeToLive);
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
@@ -38,5 +41,9 @@ public class BulletController : MonoBehaviour {
 		particleSystem.Play();
 		float ttl = Mathf.Max(DeathSound.length, particleSystem.duration);
 		Destroy(this.gameObject, ttl);
+	}
+
+	void Evaporate(){
+		Destroy(gameObject);
 	}
 }
