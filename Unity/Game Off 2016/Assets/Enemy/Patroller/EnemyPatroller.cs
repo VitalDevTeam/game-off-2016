@@ -5,11 +5,13 @@ public class EnemyPatroller : MonoBehaviour {
 	private Vector3[] _waypoints;
 	public Transform[] Waypoints;
 	private int activeWaypointIndex = 0;
+	SpriteRenderer sprite;
 
 	private EnemyController ec;
 
 	// Use this for initialization
 	void Start () {
+		sprite = GetComponent<SpriteRenderer>();
 		ec = GetComponent<EnemyController>();
 		_waypoints = new Vector3[Waypoints.Length];
 
@@ -23,7 +25,11 @@ public class EnemyPatroller : MonoBehaviour {
 	void Update () {
 		if(ec.Alive) {
 			Vector3 waypoint = _waypoints[activeWaypointIndex];
-			transform.position = Vector3.MoveTowards(transform.position, waypoint, ec.Speed * Time.deltaTime);
+			Vector3 frameDestination = Vector3.MoveTowards(transform.position, waypoint, ec.Speed * Time.deltaTime);
+
+			sprite.flipX = (frameDestination.x > transform.position.x);
+
+			transform.position = frameDestination;
 			if(transform.position == waypoint){
 				activeWaypointIndex = (activeWaypointIndex + 1) % Waypoints.Length;
 			}	
