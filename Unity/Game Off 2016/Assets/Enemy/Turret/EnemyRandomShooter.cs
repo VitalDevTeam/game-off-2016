@@ -37,4 +37,15 @@ public class EnemyRandomShooter : MonoBehaviour {
 			}
 		}
 	}
+
+	void LateUpdate(){
+		if(ec.Alive){
+			float theta = (ec.Heading * 360) + 90;
+			while(theta < 0){
+				theta += 360;
+			}
+
+			transform.rotation = Quaternion.Euler(0, 0, theta);
+		}
+	}
 }
