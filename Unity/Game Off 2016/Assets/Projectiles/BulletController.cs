@@ -10,11 +10,13 @@ public class BulletController : MonoBehaviour {
 	private Renderer r;
 	private AudioSource audioSource;
 	private Rigidbody2D rb;
+	private ParticleSystem particleSystem;
 
 	void Start(){
 		rb = GetComponent<Rigidbody2D>();
 		audioSource = GetComponent<AudioSource>();
 		r = GetComponent<Renderer>();
+		particleSystem = GetComponent<ParticleSystem>();
 
 		audioSource.clip = CreationSound;
 		audioSource.Play();
@@ -33,6 +35,8 @@ public class BulletController : MonoBehaviour {
 		audioSource.clip = DeathSound;
 		audioSource.Play();
 		r.enabled = false;
-		Destroy(this.gameObject, DeathSound.length);
+		particleSystem.Play();
+		float ttl = Mathf.Max(DeathSound.length, particleSystem.duration);
+		Destroy(this.gameObject, ttl);
 	}
 }
