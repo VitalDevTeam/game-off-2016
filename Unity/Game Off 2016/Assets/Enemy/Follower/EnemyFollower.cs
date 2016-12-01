@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemyFollower : MonoBehaviour {
 	private Transform player; 
 	private EnemyController ec;
-	public float speed = 2f;
+	public float Speed = 2f;
 
 	// Use this for initialization
 	void Start () {
@@ -20,7 +20,12 @@ public class EnemyFollower : MonoBehaviour {
 		}
 
 		transform.rotation = Quaternion.Euler(0, 0, theta);
-		transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+
+		float frameSpeed = Speed * Time.deltaTime;
+		if(!ec.Alive){
+			frameSpeed *= 0.25f;
+		}
+		transform.position = Vector2.MoveTowards(transform.position, player.position, frameSpeed);
 	}
 	
 }
